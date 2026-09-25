@@ -31,3 +31,14 @@ jobs:
 
       - name: Verify application imports
         run: uv run python -c "from main import app; print(app.title)"
+
+  docker:
+    runs-on: ubuntu-latest
+    needs: test
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Build Docker image
+        run: docker build -t production-ml:ci .
